@@ -10,17 +10,22 @@
     <h1>Shopping List</h1>
     <p>
         New item: <input type="text" name="item">
-        <button type="button">Add</button>
+        <button type="button" onclick="add(document.getElementsByName('item')[0].value);">Add</button>
     </p>
     <h3>List of items</h3>
-    <ol>
+    <ol id="myList">
         <li>cooking oil</li>
         <li>breakfast cereal</li>
         <li>bread</li>
     </ol>
 
     <script>
-    	// a JavaScript code here ...
+        function add(content)
+        {
+            var elem = document.createElement("li");
+			elem.textContent = content;
+			document.getElementById("myList").appendChild(elem);
+        }
 
     </script>
 </body>
