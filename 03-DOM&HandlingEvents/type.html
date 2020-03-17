@@ -20,9 +20,32 @@
 		Przeciw nim sterczy biała, wąska, zaostrzona,<br>
 		Jak głaz bodzący morze, reduta Ordona.</p>
 		
-		<textarea rows="15" cols="50"></textarea><br>
+		<textarea id="typeTest" rows="15" cols="50" oninput="if(!isCalculated){isCalculated = true; setTimeout(function(){ getResults(); }, 3000);}"></textarea><br>
 		
 		<script>
+			var isPara = false;
+			var isCalculated = false;
+			function getResults()
+			{
+				area = document.getElementById("typeTest");
+				wordsNumber = area.value.split(' ').length;
+				charsNumber = area.value.length;
+				content = "Ilość znaków to: " + charsNumber + ", zaś ilość słów: "+ wordsNumber;
+				if(!isPara)
+				{
+					var para = document.createElement("p");
+					para.id ="myPara";
+					para.textContent = content;
+
+					document.body.appendChild(para);
+					isPara = true;
+				}
+				else
+				{
+					document.getElementById("myPara").textContent = content;
+				}
+				isCalculated = false;
+			}
 			// a JavaScript code here ...
 			
 		</script>
