@@ -19,14 +19,17 @@
         <li>bread</li>
     </ol>
 
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script>
         function add(content)
         {
             var elem = document.createElement("li");
 			elem.textContent = content;
-			document.getElementById("myList").appendChild(elem);
+            document.getElementById("myList").appendChild(elem);
+            $("li").click(function(){ this.parentNode.removeChild(this); });
         }
-
+        
+        $("li").click(function(){ this.parentNode.removeChild(this); });
     </script>
 </body>
 
