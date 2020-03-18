@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Currency</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+        <h1>Currency</h1>
+        <ol>
+            <li>Euro: <span id="eur"></span></li>
+            <li>Dolar: <span id="usd"></span></li>
+            <li>Funt: <span id="gbp"></span></li>
+        </ol>
+		
+
+		<script>
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200)
+                {
+                    var myObj = JSON.parse(this.responseText);
+                    document.getElementById("eur").innerText = myObj[0].rates[7].mid;
+                    document.getElementById("usd").innerText = myObj[0].rates[1].mid;
+                    document.getElementById("gbp").innerText = myObj[0].rates[10].mid;
+                }
+            };
+            url = 'http://api.nbp.pl/api/exchangerates/tables/a/?format=json';
+            xhr.open('GET', url);
+            xhr.send();
+		</script>
+
+	</body>
+</html>
