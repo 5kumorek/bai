@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Students</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Students</h1>
+		<p>Click to see students</p>
+		<input type="button" value="Display student's data" onclick="connect()">
+		<ol id="myList"></ol>
+
+		<script>
+            var listIsEmpty = true;
+			function connect(){
+				var xhr = new XMLHttpRequest();
+               
+				xhr.onreadystatechange = function(){
+					if(this.readyState == 4 && this.status == 200)
+					{
+						var myObj = JSON.parse(this.responseText);
+                        if(listIsEmpty)
+                        {
+                            listIsEmpty = false;
+                            for(var i = 0; i < myObj.length; i++)
+                            {
+                                var elem = document.createElement("li");
+                                elem.textContent = myObj[i].name + " " + myObj[i].surname.toUpperCase() + ", " + myObj[i].country;
+                                document.getElementById("myList").appendChild(elem);
+                            }
+                        }
+                       
+					}
+				};
+				xhr.open('GET', 'people.json');
+				xhr.send();
+
+                
+			}
+		</script>
+
+	</body>
+</html>
