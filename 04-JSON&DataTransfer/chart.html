@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Chart</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="../node_modules/chart.js/dist/Chart.js"></script>
+	</head>
+	<body>
+        <h1>Gold</h1>
+		<canvas id="myChart" width="400" height="700"></canvas>
+        <script>
+            
+        </script>
+
+		<script>
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function(){
+                var dateLabels = [ ];
+                var prices =[];
+                if(this.readyState == 4 && this.status == 200)
+                {
+                    var myObj = JSON.parse(this.responseText);
+                    //document.getElementById("eur").innerText = myObj;
+                    for(var i = 0; i < myObj.length; i++)
+                    {
+                        dateLabels.push(myObj[i].data);
+                        prices.push(myObj[i].cena);
+                    }
+                    console.log(dateLabels);
+                    var colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
+                    '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D'];
+
+                    var ctx = document.getElementById('myChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: dateLabels,
+                            datasets: [{
+                                label: 'gold prices',
+                                data: prices,
+                                backgroundColor: colorArray,
+                                borderColor: colorArray,
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            };
+            var url = 'http://api.nbp.pl/api/cenyzlota/last/10/?format=json';
+            xhr.open('GET', url);
+            xhr.send();
+		</script>
+
+	</body>
+</html>
