@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <h1>Grades</h1>    
+  <div id="app">
+    <p>Students grades: {{ grades }}</p>
+    <p>Average grade: {{ average }}</p>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        grades: [
+            4,
+            5,
+            3,
+            2,
+            3,
+            5,
+            5,
+            2,
+            4 
+      ]
+      }, 
+      computed: 
+      { 
+        average: function () {
+            let sum = this.grades.reduce((previous, current) => current += previous);
+            let avg = sum / this.grades.length * 100;
+            return Math.trunc(avg)/100; 
+          } 
+      } 
+    });
+  </script>
+
+</body>
+</html>
