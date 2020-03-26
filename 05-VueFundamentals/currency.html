@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style type="text/css">
+      td{
+        border: solid 1px;
+        width: 170px;
+      }
+      thead{
+        font-weight: bold;
+      }
+    </style>
+</head>
+<body>
+  <table id="app" style="margin: auto; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <td>Currency</td>
+        <td>Code</td>
+        <td>Mid</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in currencies"> 
+        <td>{{item.currency}}</td> 
+        <td>{{item.code}}</td> 
+        <td>{{item.mid}}</td> 
+      </tr> 
+    </tbody>
+  </table>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        currencies: []
+      }
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200)
+        {
+            var myObj = JSON.parse(this.responseText);
+            app.currencies = myObj[0].rates;
+            console.log(app.currencies);
+            // document.getElementById("eur").innerText = myObj[0].rates[7].mid;
+            // document.getElementById("usd").innerText = myObj[0].rates[1].mid;
+            // document.getElementById("gbp").innerText = myObj[0].rates[10].mid;
+        }
+    };
+    url = 'http://api.nbp.pl/api/exchangerates/tables/a/?format=json';
+    xhr.open('GET', url);
+    xhr.send();
+  </script>
+</body>
+</html>
