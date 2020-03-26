@@ -2,8 +2,14 @@
 <html>
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript" src="../node_modules/chart.js/dist/Chart.js"></script>
 </head>
 <body>
+  <h1>Chart</h1>
+  <div id="app">
+    <canvas id="myChart" width="400" height="700"></canvas>
+  </div>
+      
   <script>
     var app = new Vue({
       el: '#app',
@@ -30,7 +36,55 @@
             popularity: 7.37
           }
         ] 
-      }
+      }, 
+      computed: 
+      { 
+        dateLabels: function () {
+          var labels =[];
+          for(var i = 0;i < this.films.length; i++)
+          {
+            labels.push(this.films[i].language);
+          }
+          return labels; 
+        },
+        values: function () {
+          var values =[];
+          for(var i = 0;i < this.films.length; i++)
+          {
+            values.push(this.films[i].popularity);
+          }
+          return values; 
+        } 
+      } 
+    });
+
+    var colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6', 
+    '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D'];
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: app.dateLabels,
+            datasets: [{
+                label: 'Languages',
+                data: app.values,
+                backgroundColor: colorArray,
+                borderColor: colorArray,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
     });
   </script>
 </body>
