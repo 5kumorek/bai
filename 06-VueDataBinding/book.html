@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <span>Data:</span><br/>
+    <input type="text" v-model="bookName"><br/>  
+    <input type="text" v-model="authorName">  <br/>
+    <input type="text" v-model="authorSurname">  <br/>
+    <button v-on:click="save">Zapisz</button>
+
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        bookName: '',
+        authorName: '',
+        authorSurname:'' 
+      },
+      methods:{
+        save: function($event)
+        {
+          console.log(this.bookName);
+          console.log(this.authorName);
+          console.log(this.authorSurname);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
