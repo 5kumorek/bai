@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <h1>CV</h1>
+  <div id="app">
+    <span>Name: </span>
+    <input type="text" v-model="cv.name"> <br>
+    <span>Surame: </span>
+    <input type="text" v-model="cv.surname"> <br>
+    <span>Age: </span>
+    <input type="text" v-model.number="cv.age"> <br>
+    <input type="radio" id= "male" value= "male" v-model="cv.sex"> 
+    <label for="male">Male</label>
+    <input type="radio" id="female" value="female" v-model="cv.sex"> 
+    <label for="female">Female</label>
+    <select v-model="cv.education"> 
+        <option disabled value="">Wybierz:</option> 
+        <option>podstawowe</option> 
+        <option>srednie</option> 
+        <option>wyzsze</option> 
+    </select> <br>
+    <input type="checkbox" id= "pc" value= "pc" v-model="cv.skills"> 
+    <label for="pc">PC</label>
+    <input type="checkbox" id="drive" value="drive" v-model="cv.skills"> 
+    <label for="drive">Driver License</label>
+    <input type="checkbox" id="creativity" value="creativity" v-model="cv.skills"> 
+    <label for="creativity">Creativity</label>
+    <input type="checkbox" id="teamwork" value="teamwork" v-model="cv.skills"> 
+    <label for="teamwork">Team work</label> <br>
+
+    <button type="button" v-on:click="save()">Save</button>
+    <button type="button" v-on:click="read()">Read</button>
+  </div>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+          cv :{
+        name : '',
+        surname: '',
+        age: 0,
+        sex: null,
+        education: "",
+        skills:[]
+          },
+      },
+      methods: {
+        save: function () {
+            var myString = JSON.stringify(this.cv);
+            localStorage.setItem('cv', myString);
+        },
+        read: function () {
+            myString = localStorage.getItem('cv');
+            this.cv = JSON.parse(myString);
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
