@@ -11,7 +11,7 @@
     <button type="button" @click="add()">Add</button>
     <h3>To Do List</h3>
     <Ol> 
-      <li v-for="item in todos"> {{ item }} </li> 
+      <li v-for="(item, index) in todos" v-on:dblclick="removeItem(index)"> {{ item }} </li> 
     </Ol> 
   </div>
   <script>
@@ -24,6 +24,9 @@
       methods: {
         add: function() {
           this.todos.push(this.todo);
+        },
+        removeItem: function(index) {
+          this.todos.splice(index, 1);
         }
       }
     });
