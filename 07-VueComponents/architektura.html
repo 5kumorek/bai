@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <arch 
+        v-for="element in elements"
+        v-bind:id="element.id"
+        v-bind:title="element.title">
+    </arch>
+  </div>
+  <script src="app_neumann.js"></script>
+</body>
+</html>
